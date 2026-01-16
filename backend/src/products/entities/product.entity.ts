@@ -11,6 +11,8 @@ export class Product {
   rentabilidadEsperadaAnual?: number;
   plazoMeses?: number;
   liquidezDias?: number;
+  saldoMinimo?: number;
+  montoApertura?: number;
   montoMinimo: number;
   destacado: boolean;
   tags: string[];

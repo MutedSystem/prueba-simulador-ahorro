@@ -168,8 +168,6 @@ export const PRODUCTS: Product[] = [
     destacado: true,
     tags: ['jubilación', 'multipaís'],
   },
-
-  /* 11–20 */
   {
     id: 'p11',
     nombre: 'Certificado de Estabilidad de Ingresos',
@@ -336,8 +334,6 @@ export const PRODUCTS: Product[] = [
     destacado: false,
     tags: ['derivado', 'volatilidad'],
   },
-
-  /* 21–30 */
   {
     id: 'p21',
     nombre: 'Crédito Personal de Reinvención Profesional',
@@ -499,8 +495,6 @@ export const PRODUCTS: Product[] = [
     destacado: true,
     tags: ['certificado', 'conservador'],
   },
-
-  /* Créditos personales p31–p36 */
   {
     id: 'p31',
     nombre: 'Crédito Personal Rápido Online',
@@ -598,8 +592,6 @@ export const PRODUCTS: Product[] = [
     destacado: true,
     tags: ['crédito', 'consolidación'],
   },
-
-  /* Tarjetas de crédito p37–p42 */
   {
     id: 'p37',
     nombre: 'Tarjeta de Crédito Clásica',
@@ -691,5 +683,101 @@ export const PRODUCTS: Product[] = [
     montoMinimo: 0,
     destacado: true,
     tags: ['tarjeta', 'elite', 'lujo'],
+  },
+  {
+    id: 'p43',
+    nombre: 'Cuenta de Ahorro Básica',
+    codigo: 'AHO-BASIC',
+    tipo: 'Cuenta de Ahorro',
+    descripcionCorta: 'Cuenta de ahorro sin costo de mantenimiento.',
+    descripcionLarga:
+      'Cuenta diseñada para el ahorro cotidiano, sin comisiones de mantenimiento y con disponibilidad inmediata de fondos.',
+    moneda: 'USD',
+    riesgo: NivelRiesgo.BAJO,
+    tasaInteresAnual: 1.2,
+    liquidezDias: 0,
+    montoMinimo: 0,
+    destacado: false,
+    tags: ['ahorro', 'básica', 'sin comisiones'],
+  },
+  {
+    id: 'p44',
+    nombre: 'Cuenta de Ahorro Plus',
+    codigo: 'AHO-PLUS',
+    tipo: 'Cuenta de Ahorro',
+    descripcionCorta: 'Mayor rentabilidad manteniendo un saldo promedio.',
+    descripcionLarga:
+      'Cuenta que ofrece una tasa superior a cambio de mantener un saldo promedio mensual. Ideal para ahorro constante.',
+    moneda: 'USD',
+    riesgo: NivelRiesgo.BAJO,
+    tasaInteresAnual: 2.5,
+    liquidezDias: 0,
+    montoMinimo: 100,
+    destacado: true,
+    tags: ['ahorro', 'rentabilidad', 'saldo promedio'],
+  },
+  {
+    id: 'p45',
+    nombre: 'Cuenta de Ahorro Digital',
+    codigo: 'AHO-DIGI',
+    tipo: 'Cuenta de Ahorro',
+    descripcionCorta: 'Cuenta 100% digital con control desde la app.',
+    descripcionLarga:
+      'Cuenta operable desde canales digitales con notificaciones en tiempo real, categorización de ahorros y metas.',
+    moneda: 'USD',
+    riesgo: NivelRiesgo.BAJO,
+    tasaInteresAnual: 2.0,
+    liquidezDias: 0,
+    montoMinimo: 0,
+    destacado: true,
+    tags: ['ahorro', 'digital', 'app'],
+  },
+  {
+    id: 'p46',
+    nombre: 'Cuenta de Ahorro Programado',
+    codigo: 'AHO-PROG',
+    tipo: 'Cuenta de Ahorro',
+    descripcionCorta: 'Ahorro automático con aportes periódicos.',
+    descripcionLarga:
+      'Permite programar transferencias automáticas para alcanzar objetivos. Puede tener restricción de retiros para incentivar disciplina.',
+    moneda: 'USD',
+    riesgo: NivelRiesgo.BAJO,
+    tasaInteresAnual: 3.0,
+    liquidezDias: 30,
+    montoMinimo: 50,
+    destacado: false,
+    tags: ['ahorro', 'programado', 'objetivos'],
+  },
+  {
+    id: 'p47',
+    nombre: 'Cuenta de Ahorro Joven',
+    codigo: 'AHO-JOVEN',
+    tipo: 'Cuenta de Ahorro',
+    descripcionCorta: 'Cuenta para jóvenes con incentivos al ahorro.',
+    descripcionLarga:
+      'Cuenta dirigida a usuarios jóvenes que fomenta el hábito del ahorro mediante metas, recordatorios y recompensas.',
+    moneda: 'USD',
+    riesgo: NivelRiesgo.BAJO,
+    tasaInteresAnual: 1.8,
+    liquidezDias: 0,
+    montoMinimo: 10,
+    destacado: false,
+    tags: ['ahorro', 'joven', 'incentivos'],
+  },
+  {
+    id: 'p48',
+    nombre: 'Cuenta de Ahorro Premium',
+    codigo: 'AHO-PREM',
+    tipo: 'Cuenta de Ahorro',
+    descripcionCorta: 'Rentabilidad preferencial para saldos elevados.',
+    descripcionLarga:
+      'Cuenta orientada a clientes con saldos altos. Ofrece tasas preferenciales y beneficios adicionales según el perfil.',
+    moneda: 'USD',
+    riesgo: NivelRiesgo.BAJO,
+    tasaInteresAnual: 4.0,
+    liquidezDias: 0,
+    montoMinimo: 5000,
+    destacado: true,
+    tags: ['ahorro', 'premium', 'alto patrimonio'],
   },
 ];
