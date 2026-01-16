@@ -7,6 +7,7 @@ export const productsRepository = {
             headers: {
                 'Content-Type': 'application/json',
             },
+            cache: 'no-store',
         });
         const data = await response.json();
         return data;
