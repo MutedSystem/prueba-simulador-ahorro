@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDebounce } from "use-debounce";
 
 function useProductSearch() {
@@ -17,6 +17,10 @@ function useProductSearch() {
     }
 
     useEffect(() => {
+        if(debouncedSearch === baseSearch) {
+            return;
+        }
+        
         const params = new URLSearchParams(searchParams);
         params.set('search', debouncedSearch);
         if(search === '') {
