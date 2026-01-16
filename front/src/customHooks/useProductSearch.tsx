@@ -7,7 +7,6 @@ import { useDebounce } from "use-debounce";
 function useProductSearch() {
     const searchParams = useSearchParams();
     const router = useRouter();
-    const pathname = usePathname();
     const baseSearch = searchParams.get('search') || '';
 
     const [search, setSearch] = useState(baseSearch);
@@ -19,11 +18,11 @@ function useProductSearch() {
 
     useEffect(() => {
         const params = new URLSearchParams(searchParams);
-        params.set('search', search);
+        params.set('search', debouncedSearch);
         if(search === '') {
             params.delete('search');
         }
-        router.push(`${pathname}?${params.toString()}`);
+        router.replace(`/products?${params.toString()}`);
     }, [debouncedSearch]);
 
     return { search, handleSearch };
