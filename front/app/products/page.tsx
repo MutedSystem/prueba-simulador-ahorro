@@ -1,9 +1,16 @@
 import ProductCard from "@/src/components/Products/ProductCard";
 import { productsRepository } from "@/src/repositories/products.repository";
 
-export default async function ProductsPage() {
+type ProductsPageProps = {
+    searchParams: {
+        search: string;
+    }
+}
 
-    const products = await productsRepository.getProducts();
+export default async function ProductsPage({ searchParams }: ProductsPageProps) {
+    const { search = '' } = await searchParams;
+    
+    const products = await productsRepository.getProducts(search);
 
     return (
         <main className="p-10 flex flex-col gap-4 items-center justify-center">
