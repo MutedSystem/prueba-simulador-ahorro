@@ -1,18 +1,33 @@
+"use client";
 import { uploadLeadAction } from "@/app/actions/uploadLeadAction";
-import { useActionState, useEffect, useState } from "react";
+import { startTransition, useActionState, useEffect, useState } from "react";
+import { getRecaptchaToken } from "../utils/getRecaptchaToken";
 
-function useContactFormAction() {
-  const [state, formAction] = useActionState(uploadLeadAction, { success: false });
-  const { error, success } = state;
-
+function useContactFormAction() {  
+  
   const [showModal, setShowModal] = useState(false);
+  const [state, action, pending] = useActionState(uploadLeadAction, { success: false, runs: 0 });
+  
+  const { error, leadId, runs } = state;
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const token = await getRecaptchaToken("contact");
+    formData.set("recaptchaToken", token);
+    startTransition(() => {
+      action(formData);
+    });
+  }
 
   useEffect(() => {
+    if (runs === 0) return;
     setTimeout(() => {
-      setShowModal(success === false && error !== undefined && error !== '' && error !== null);
+      setShowModal(true);
     }, 100);
-  }, [success, error]);
-  return { showModal, error, formAction, setShowModal };
+  }, [runs]);
+
+  return { showModal, error,leadId, pending, handleSubmit, setShowModal };
 }
 
 export default useContactFormAction;
