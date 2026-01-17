@@ -1,35 +1,34 @@
 'use client';
 
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 
 function useProductSearch() {
-    const searchParams = useSearchParams();
-    const router = useRouter();
-    const baseSearch = searchParams.get('search') || '';
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const baseSearch = searchParams.get('search') || '';
 
-    const [search, setSearch] = useState(baseSearch);
-    const [debouncedSearch] = useDebounce(search, 500);
+  const [search, setSearch] = useState(baseSearch);
+  const [debouncedSearch] = useDebounce(search, 500);
 
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value);
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  useEffect(() => {
+    if(debouncedSearch === baseSearch) {
+      return;
     }
+    const params = new URLSearchParams(searchParams);
+    params.set('search', debouncedSearch);
+    if(search === '') {
+      params.delete('search');
+    }
+    router.replace(`/products?${params.toString()}`);
+  }, [debouncedSearch]);
 
-    useEffect(() => {
-        if(debouncedSearch === baseSearch) {
-            return;
-        }
-        
-        const params = new URLSearchParams(searchParams);
-        params.set('search', debouncedSearch);
-        if(search === '') {
-            params.delete('search');
-        }
-        router.replace(`/products?${params.toString()}`);
-    }, [debouncedSearch]);
-
-    return { search, handleSearch };
+  return { search, handleSearch };
 }
 
 export default useProductSearch;

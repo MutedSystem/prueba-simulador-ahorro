@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable no-unused-vars */
+import React from 'react';
 
 type ContactInputProps = {
   value: string;
@@ -11,7 +12,7 @@ type ContactInputProps = {
   type: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
-}
+};
 
 const ContactInput = ({ label, id, name, placeholder, type, value, touched, error, onChange, onBlur }: ContactInputProps) => {
   return (
@@ -30,7 +31,7 @@ const ContactInput = ({ label, id, name, placeholder, type, value, touched, erro
       />
       {error && touched && <p className="text-red-500">{error}</p>}
     </div>
-  )
-}
+  );
+};
 
-export default ContactInput
+export default ContactInput;

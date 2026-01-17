@@ -8,7 +8,7 @@ export type ContactFormFields = {
   email: string;
   identificationType: string;
   identification: string;
-}
+};
 
 type ContactFormErrors = Partial<Record<keyof ContactFormFields, string>>;
 
@@ -63,17 +63,17 @@ function useContactForm() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFields((prev) => ({ ...prev, [name]: value }));
-  }
+  };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFields((prev) => ({ ...prev, [name]: value }));
-  }
+  };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { name } = e.target;
     setTouched((prev) => ({ ...prev, [name]: true }));
-  } 
+  }; 
 
   return {
     fields,
@@ -83,7 +83,7 @@ function useContactForm() {
     handleChange,
     handleSelectChange,
     handleBlur,
-  }
+  };
 }
 
 export default useContactForm;

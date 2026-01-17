@@ -18,7 +18,7 @@ function useContactFormAction() {
     startTransition(() => {
       action(formData);
     });
-  }
+  };
 
   useEffect(() => {
     if (runs === 0) return;

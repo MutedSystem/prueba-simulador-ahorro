@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 const ProductCardSkeleton = () => {
   return (
     <div>ProductCardSkeleton</div>
-  )
-}
+  );
+};
 
-export default ProductCardSkeleton
+export default ProductCardSkeleton;

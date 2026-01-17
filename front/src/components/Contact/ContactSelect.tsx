@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 type ContactSelectProps = {
   label: string;
@@ -7,33 +7,34 @@ type ContactSelectProps = {
   options: Option[];
   placeholder: string;
   value: string;
+  // eslint-disable-next-line no-unused-vars
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-}
+};
 
 type Option = {
   label: string;
   value: string;
   isDefault?: boolean;
-}
+};
 
 const ContactSelect = ({ label, id, name, options, value, onChange }: ContactSelectProps) => {
   return (
     <div className="flex flex-col gap-2">
-        <label htmlFor={id}>{label}</label>
-        <select id={id} name={name} value={value} onChange={onChange} required={true}>
-            {options.map((option) => (
-                <option 
-                  key={`${label}-${id}-${option.value}`} 
-                  value={option.value}
-                  disabled={option.isDefault || false}
-                  hidden={option.isDefault || false}
-                >
-                  {option.label}
-                </option>
-            ))}
-        </select>
+      <label htmlFor={id}>{label}</label>
+      <select id={id} name={name} value={value} onChange={onChange} required={true}>
+        {options.map((option) => (
+          <option 
+            key={`${label}-${id}-${option.value}`} 
+            value={option.value}
+            disabled={option.isDefault || false}
+            hidden={option.isDefault || false}
+          >
+            {option.label}
+          </option>
+        ))}
+      </select>
     </div>
-  )
-}
+  );
+};
 
-export default ContactSelect
+export default ContactSelect;

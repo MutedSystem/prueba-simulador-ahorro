@@ -2,8 +2,8 @@
 import { Product } from '@/src/entities/Product';
 
 type ProductCardProps = {
-    product: Product;
-}
+  product: Product;
+};
 
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
@@ -34,7 +34,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <p className="text-sm text-gray-500"><b>Moneda:</b> {product.moneda}</p>
       </div>
     </li>
-  )
-}
+  );
+};
 
-export default ProductCard
+export default ProductCard;

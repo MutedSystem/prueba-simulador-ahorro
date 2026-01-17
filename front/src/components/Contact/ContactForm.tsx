@@ -68,12 +68,12 @@ export default function Form() {
           onBlur={handleBlur}
         />
         <button
-      disabled={pending || !canSubmit}
-      type="submit"
-      className="bg-blue-500 text-white p-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
-    >
-      {pending ? "Enviando..." : "Enviar"}
-    </button>
+          disabled={pending || !canSubmit}
+          type="submit"
+          className="bg-blue-500 text-white p-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {pending ? "Enviando..." : "Enviar"}
+        </button>
       </form>
       {showModal && <Modal onClose={() => setShowModal(false)}>
         <div className="flex flex-col gap-2 items-center justify-center">

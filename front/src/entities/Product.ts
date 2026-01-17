@@ -14,4 +14,4 @@ export type Product = {
   montoMinimo: number;
   destacado: boolean;
   tags: string[];
-}
+};
