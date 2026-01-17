@@ -1,5 +1,9 @@
 'use client';
 import { Product } from '@/src/entities/Product';
+import { MdOutlineBusinessCenter } from 'react-icons/md';
+import ProductSubItem from './ProductSubItem';
+import { formatCurrency } from '@/src/utils/formatCurrency';
+import RiskCard from './RiskCard';
 
 type ProductCardProps = {
   product: Product;
@@ -7,32 +11,22 @@ type ProductCardProps = {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
-    <li className="bg-white rounded-lg shadow-md p-4 flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
-        <h2 className="text-lg font-bold">{product.nombre}</h2>
-        <p className="text-sm text-gray-500">{product.descripcionCorta}</p>
+    <li className="bg-white rounded-lg shadow-md p-6 flex flex-col gap-4">
+      <div className="flex justify-between">
+        <MdOutlineBusinessCenter className="text-3xl text-primary bg-primary/10 p-1 rounded-sm" />
+        <p className="text-gray-700 bg-gray-100 px-2 py-1 rounded-full text-xs h-fit">{product.tipo}</p>
       </div>
-      <div className="flex flex-col gap-2">
-        <p className="text-sm text-gray-500">{product.descripcionLarga}</p>
+      <h2 className="text-[18px] font-bold">{product.nombre}</h2>
+      <p className="text-gray-500 text-sm">{product.descripcionLarga}</p>
+
+      <div className="grid grid-cols-2 gap-4">
+        {product.tasaInteresAnual && <ProductSubItem label="Tasa Anual" value={`${product.tasaInteresAnual}%`} />}
+        {product.rentabilidadEsperadaAnual && <ProductSubItem label="Rent. Esper. Anual" value={`${product.rentabilidadEsperadaAnual}%`} />}
+        {product.plazoMeses && <ProductSubItem label="Plazo en Meses" value={`${product.plazoMeses} meses`} />}
+        {product.montoMinimo && <ProductSubItem label="Monto Mínimo" value={`${formatCurrency(product.montoMinimo)}`} />}
+        <ProductSubItem label="Moneda" value={product.moneda} />
       </div>
-      {product.tasaInteresAnual && (
-        <div className="flex flex-col gap-2">
-          <p className="text-sm text-gray-500"><b>Tasa de interés anual:</b> {product.tasaInteresAnual}%</p>
-        </div>
-      )}
-      {product.rentabilidadEsperadaAnual && (
-        <div className="flex flex-col gap-2">
-          <p className="text-sm text-gray-500"><b>Rentabilidad esperada anual:</b> {product.rentabilidadEsperadaAnual}%</p>
-        </div>
-      )}
-      {product.plazoMeses && (
-        <div className="flex flex-col gap-2">
-          <p className="text-sm text-gray-500"><b>Plazo en meses:</b> {product.plazoMeses}</p>
-        </div>
-      )}
-      <div className="flex flex-col gap-2">
-        <p className="text-sm text-gray-500"><b>Moneda:</b> {product.moneda}</p>
-      </div>
+      <RiskCard risk={product.riesgo} />
     </li>
   );
 };

@@ -15,10 +15,17 @@ export default async function ProductsPage({
   const products = await productsRepository.getProducts(search);
 
   return (
-    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
-    </ul>
+    <>
+      <p className="text-gray-500 text-xs font-bold mb-4">Encontramos {products.length} productos</p>
+      {products.length > 0 ? (
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {products.map((product) => (
+            <ProductCard key={`product-card-${product.id}`} product={product} />
+          ))}
+        </ul>
+      ) : (
+        <p className="text-gray-500">No encontramos ningún producto que coincida con tu búsqueda</p>
+      )}
+    </>
   );
 }
