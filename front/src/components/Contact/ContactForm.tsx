@@ -1,23 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Modal from "../Utils/Modal";
 import { RecaptchaScript } from "../Utils/ReCaptchaV3";
 import useContactFormAction from "@/src/customHooks/useContactFormAction";
 import ContactButton from "./ContactButton";
 
 export default function Form() {
-
-  const {formAction, state} = useContactFormAction();
-  const { error, success } = state;
-
-  const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setShowModal(success === false && error !== undefined && error !== '' && error !== null);
-    }, 100);
-  }, [success, error]);
+  const { showModal, error, formAction, setShowModal } = useContactFormAction();
 
   return (
     <>
