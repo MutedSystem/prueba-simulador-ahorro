@@ -100,8 +100,6 @@ export class ProductsService {
       searchParams.orderBy = orderBy;
     }
 
-    console.log('searchParams', JSON.stringify(searchParams, null, 2));
-
     const products = await this.prismaService.product.findMany(searchParams);
 
     return products.map((product) => ({
