@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://user:password@db:5432/db?schema=public
+      PORT: 3005
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    working_dir: /app
+    ports:
+      - "3005:3005"
+    command: sh -c "npx prisma migrate deploy && npx prisma db seed && node dist/src/main.js"
+
+  frontend:
+    environment:
+      API_URL: http://backend:3005
+      RECAPTCHA_SECRET_KEY: 6Ld6Ck0sAAAAAEJhy4AGIlkk3oYtN3K_MiokXtAS
+      GOOGLE_API_KEY: AIzaSyCb3IKQAWhYW4h5yApBRIV8swgaNMGSxhc
+      NEXT_PUBLIC_RECAPTCHA_SITE_KEY: 6Ld6Ck0sAAAAAIole0dbMM064zbBh3rMrbbRaXL_
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    command: ["npm", "run", "start"]
+
+volumes:
+  db_data:

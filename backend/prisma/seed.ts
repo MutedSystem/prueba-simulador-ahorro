@@ -1,8 +1,7 @@
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../generated/prisma/client';
-import { Pool } from 'pg';
 import { PRODUCTS } from '../src/products/const/products';
-import { normalizeString } from 'src/utils/normalizeString';
+import { Pool } from 'pg';
 
 const prisma = new PrismaClient({
   adapter: new PrismaPg(
@@ -12,6 +11,15 @@ const prisma = new PrismaClient({
     }),
   ),
 });
+
+const normalizeString = (str: string) => {
+  return str
+    .normalize('NFD')
+    .toLowerCase()
+    .replace(/\s+/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]/g, '');
+};
 
 function main() {
   prisma.product
