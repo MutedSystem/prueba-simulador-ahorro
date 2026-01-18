@@ -25,7 +25,7 @@ export default async function ProductsPage({
     <>
       <p className="text-gray-500 text-xs font-bold mb-4">Encontramos {products.length} productos</p>
       <div className="flex xl:flex-row flex-col gap-5 items-start">
-        <div className="flex flex-col gap-5 w-full xl:w-[250px] 2xl:w-[300px]">
+        <div className="flex flex-col gap-5">
           <SearchFilters types={uniqueTypes} currencies={uniqueCurrencies} />
         </div>
         {products.length > 0 ? (
