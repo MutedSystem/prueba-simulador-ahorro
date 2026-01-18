@@ -15,9 +15,7 @@ export default function ProductsLayout({ children }: { children: React.ReactNode
       <h1 className="text-2xl font-bold">Productos Financieros de FinColombia</h1>
       <p className="text-gray-500">Explora nuestros productos financieros diseñados para satisfacer tus necesidades financieras.</p>
       <Suspense fallback={<ProductSearchSkeleton />}>
-        <div className="flex items-center gap-2 w-full">
-          <ProductSearch />
-        </div>
+        <ProductSearch />
         <ProductSort />
       </Suspense>
       {children}
