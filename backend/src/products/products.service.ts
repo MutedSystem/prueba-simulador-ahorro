@@ -53,6 +53,9 @@ export class ProductsService {
 
     const products = await this.prismaService.product.findMany(searchParams);
 
-    return products;
+    return products.map((product) => ({
+      ...product,
+      tags: product.tags.split(','),
+    }));
   }
 }
