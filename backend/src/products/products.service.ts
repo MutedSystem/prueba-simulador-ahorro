@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from 'generated/prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SORT_NAMES } from './const/sortNames';
@@ -106,6 +106,19 @@ export class ProductsService {
       ...product,
       tags: product.tags.split(','),
     }));
+  }
+
+  async findOne(id: string) {
+    const product = await this.prismaService.product.findUnique({
+      where: { id },
+    });
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+    return {
+      ...product,
+      tags: product?.tags.split(','),
+    };
   }
 
   async getFilters() {
