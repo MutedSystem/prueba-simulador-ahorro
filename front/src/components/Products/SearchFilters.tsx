@@ -2,10 +2,11 @@
 import React from 'react';
 import SearchType from './SearchType';
 import useFilterOpenness from '@/src/customHooks/useFilterOpenness';
-import { FaFilter } from 'react-icons/fa';
+import { FaFilter, FaTimes } from 'react-icons/fa';
 import useProductFilter from '@/src/customHooks/useProductCurrency';
 import { GetFiltersDTO } from '@/src/entities/GetFiltersDTO';
 import AmountFilter from './AmountFilter';
+import useFilterCleaner from '@/src/customHooks/useFilterCleaner';
 
 type SearchFiltersProps = GetFiltersDTO;
 
@@ -14,6 +15,8 @@ const SearchFilters = ({ types, currencies, minAmount, maxAmount }: SearchFilter
   const { filterArray: typesArray, handleFilter: handleTypes } = useProductFilter('types');
   const { filterArray: currenciesArray, handleFilter: handleCurrencies } = useProductFilter('currencies');
 
+  const { appliedFilters, hasAppliedFilters, clearFilters } = useFilterCleaner();
+
   const { isOpen, toggleFilterOpenness } = useFilterOpenness();
 
   return <>
@@ -21,6 +24,12 @@ const SearchFilters = ({ types, currencies, minAmount, maxAmount }: SearchFilter
       <FaFilter />
       {isOpen ? 'Cerrar filtros' : 'Filtrar'}
     </button>
+    {hasAppliedFilters && (
+      <button onClick={clearFilters} className="text-xs font-bold hover:bg-primary/80 transition-all duration-300 hover:underline w-fit bg-primary text-white px-4 py-2 rounded-md flex items-center gap-2">
+        <FaTimes />
+        Limpiar {appliedFilters} filtro{appliedFilters > 1 ? 's' : ''}
+      </button>
+    )}
     <section className={`gap-y-2 w-full xl:w-[200px] 2xl:w-[250px] h-fit ${isOpen ? 'block' : 'hidden'}`}>
       <h3 className="text-gray-500 mb-2 font-bold">Filtrar por tipo</h3>
       <div className='flex gap-x-5 gap-y-2 flex-wrap'>

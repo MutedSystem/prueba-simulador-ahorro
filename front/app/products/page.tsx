@@ -17,11 +17,24 @@ type ProductsPageProps = {
 export default async function ProductsPage({
   searchParams,
 }: ProductsPageProps) {
-  const { search = "", sort = "", order = "asc", types = "", currencies = "", minAmount = "", maxAmount = "" } = await searchParams;
+  const {
+    search = "",
+    sort = "",
+    order = "asc",
+    types = "",
+    currencies = "",
+    minAmount = "",
+    maxAmount = ""
+  } = await searchParams;
 
   const products = await productsRepository.getProducts(search, sort, order, types, currencies, Number(minAmount), Number(maxAmount));
 
-  const { types: uniqueTypes, currencies: uniqueCurrencies, minAmount: minAmountNumber, maxAmount: maxAmountNumber } = await productsRepository.getFilters();
+  const {
+    types: uniqueTypes,
+    currencies: uniqueCurrencies,
+    minAmount: minAmountNumber,
+    maxAmount: maxAmountNumber
+  } = await productsRepository.getFilters();
 
   return (
     <>
