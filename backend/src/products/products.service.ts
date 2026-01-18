@@ -14,6 +14,8 @@ export class ProductsService {
     order: string = 'asc',
     types: string = '',
     currencies: string = '',
+    minAmount?: number,
+    maxAmount?: number,
   ) {
     const searchParams: Prisma.ProductFindManyArgs = {};
 
@@ -57,6 +59,25 @@ export class ProductsService {
       searchParams.where = filters;
     }
 
+    console.log(minAmount, maxAmount);
+
+    const minAmountNumber = Number(minAmount);
+
+    if (minAmountNumber && !isNaN(minAmountNumber) && minAmountNumber >= 0) {
+      filters.montoMinimo = {
+        gte: minAmountNumber,
+      };
+      searchParams.where = filters;
+    }
+
+    const maxAmountNumber = Number(maxAmount);
+    if (maxAmountNumber && !isNaN(maxAmountNumber) && maxAmountNumber >= 0) {
+      filters.montoMinimo = {
+        lte: maxAmountNumber,
+      };
+      searchParams.where = filters;
+    }
+
     let orderBy: Prisma.ProductOrderByWithRelationInput = {};
 
     if (sort && Object.keys(SORT_NAMES).includes(sort)) {
@@ -87,9 +108,23 @@ export class ProductsService {
       by: ['moneda'],
     });
 
+    const minAmount = await this.prismaService.product.aggregate({
+      _min: {
+        montoMinimo: true,
+      },
+    });
+
+    const maxAmount = await this.prismaService.product.aggregate({
+      _max: {
+        montoMinimo: true,
+      },
+    });
+
     return {
       types: types.map((type) => type.tipo),
       currencies: currencies.map((currency) => currency.moneda),
+      minAmount: minAmount._min.montoMinimo,
+      maxAmount: maxAmount._max.montoMinimo,
     };
   }
 }

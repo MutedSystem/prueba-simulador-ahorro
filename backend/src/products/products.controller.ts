@@ -12,8 +12,18 @@ export class ProductsController {
     @Query('order') order: 'asc' | 'desc' = 'asc',
     @Query('types') types: string,
     @Query('currencies') currencies: string,
+    @Query('minAmount') minAmount?: number,
+    @Query('maxAmount') maxAmount?: number,
   ) {
-    return this.productsService.findAll(search, sort, order, types, currencies);
+    return this.productsService.findAll(
+      search,
+      sort,
+      order,
+      types,
+      currencies,
+      minAmount,
+      maxAmount,
+    );
   }
 
   @Get('filters')
