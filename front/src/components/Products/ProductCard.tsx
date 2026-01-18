@@ -27,6 +27,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <ProductSubItem label="Moneda" value={product.moneda} />
       </div>
       <RiskCard risk={product.riesgo} />
+      <div className="flex gap-2">
+        {product.tags.map((tag) => (
+          <span key={tag} className="text-gray-500 text-xs bg-gray-100 px-2 py-1 rounded-full capitalize">{tag}</span>
+        ))}
+      </div>
     </li>
   );
 };
