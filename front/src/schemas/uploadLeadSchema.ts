@@ -7,4 +7,7 @@ export const contactSchema = z.object({
     error: "Tipo de identificación requerido",
   }),
   identification: z.string().min(1, "Identificación requerida").max(100),
+  termsAndConditions: z.boolean().refine((value) => value, {
+    message: "Debes aceptar los términos y condiciones",
+  }),
 });
