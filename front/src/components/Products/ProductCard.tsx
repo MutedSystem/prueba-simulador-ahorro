@@ -23,7 +23,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         {product.tasaInteresAnual && <ProductSubItem label="Tasa Anual" value={`${product.tasaInteresAnual}%`} />}
         {product.rentabilidadEsperadaAnual && <ProductSubItem label="Rent. Esper. Anual" value={`${product.rentabilidadEsperadaAnual}%`} />}
         {product.plazoMeses && <ProductSubItem label="Plazo en Meses" value={`${product.plazoMeses} meses`} />}
-        {product.montoMinimo && <ProductSubItem label="Monto Mínimo" value={`${formatCurrency(product.montoMinimo)}`} />}
+        <ProductSubItem label="Monto Mínimo" value={`${formatCurrency(product.montoMinimo || 0)}`} />
         <ProductSubItem label="Moneda" value={product.moneda} />
       </div>
       <RiskCard risk={product.riesgo} />
