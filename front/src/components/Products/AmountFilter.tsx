@@ -13,7 +13,7 @@ type AmountFilterProps = {
 const AmountFilter = ({ minAmount, maxAmount }: AmountFilterProps) => {
   const { amount, handleAmountChange } = useAmountFilter(minAmount, maxAmount);
   return (
-    <section className="w-full">
+    <section className="w-full mt-4">
       <h3 className="text-gray-500 mb-2 font-bold">Filtrar por monto</h3>
       <div className="w-full flex justify-between items-center">
         <p className="text-gray-500 text-xs font-bold">{formatCurrency(amount[0])}</p>
