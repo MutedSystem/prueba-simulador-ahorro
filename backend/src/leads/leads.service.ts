@@ -1,24 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { CreateLeadDto } from './dto/create-lead.dto';
-import { Lead } from './entities/lead.entity';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class LeadsService {
-  private leads: Lead[] = [];
+  constructor(private readonly prismaService: PrismaService) {}
 
-  create(createLeadDto: CreateLeadDto) {
-    const lead = new Lead(
-      createLeadDto.name,
-      createLeadDto.email,
-      createLeadDto.documentType,
-      createLeadDto.documentNumber,
-    );
+  async create(createLeadDto: CreateLeadDto) {
+    const lead = await this.prismaService.lead.create({
+      data: {
+        id: crypto.randomUUID(),
+        name: createLeadDto.name,
+        email: createLeadDto.email,
+        documentType: createLeadDto.documentType,
+        documentNumber: createLeadDto.documentNumber.toString(),
+        createdAt: new Date(),
+      },
+    });
 
-    this.leads.push(lead);
     return lead.id;
   }
 
   findAll() {
-    return this.leads;
+    return this.prismaService.lead.findMany();
   }
 }
