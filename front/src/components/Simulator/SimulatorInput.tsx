@@ -25,8 +25,8 @@ const SimulatorInput = ({
   onBlur,
 }: SimulatorInputProps) => {
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={id}>{label}</label>
+    <div className="flex flex-col gap-[6px]">
+      <label htmlFor={id} className="font-bold text-[14px]">{label}</label>
       <input
         id={id}
         name={name}
@@ -34,9 +34,10 @@ const SimulatorInput = ({
         placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}
-        className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className={`w-full px-4 py-2 rounded-md border bg-gray-100 border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary ${error && touched ? 'border-red-500' : ''}`}
       />
-      {error && touched && <p className="text-red-500">{error}</p>}
+      {error && touched && <small className="text-red-500">{error}</small>}
+      <small className={`text-gray-500 text-sm`}>Ingrese el {label.toLowerCase()}</small>
     </div>
   );
 };

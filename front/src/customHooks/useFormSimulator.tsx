@@ -18,17 +18,9 @@ export type SimulatorFields = {
   months: string;
 };
 
-type SimulatorErrors = {
-  amount?: string;
-  monthlyAmount?: string;
-  months?: string;
-};
+type SimulatorErrors = Partial<Record<keyof SimulatorFields, string>>;
 
-type SimulatorTouched = {
-  amount?: boolean;
-  monthlyAmount?: boolean;
-  months?: boolean;
-};
+type SimulatorTouched = Partial<Record<keyof SimulatorFields, boolean>>;
 
 export type SimulatorResult = {
   finalAmount: string;
