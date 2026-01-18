@@ -4,13 +4,17 @@ import SearchType from './SearchType';
 import useProductTypes from '@/src/customHooks/useProductTypes';
 import useFilterOpenness from '@/src/customHooks/useFilterOpenness';
 import { FaFilter } from 'react-icons/fa';
+import useProductFilter from '@/src/customHooks/useProductCurrency';
 
 type SearchFiltersProps = {
   types: string[];
+  currencies: string[];
 };
 
-const SearchFilters = ({ types }: SearchFiltersProps) => {
+const SearchFilters = ({ types, currencies = [] }: SearchFiltersProps) => {
   const { handleTypes, typesArray } = useProductTypes();
+
+  const { filterArray: currenciesArray, handleFilter: handleCurrencies } = useProductFilter('currencies');
 
   const { isOpen, toggleFilterOpenness } = useFilterOpenness();
 
@@ -29,6 +33,19 @@ const SearchFilters = ({ types }: SearchFiltersProps) => {
             value={type}
             handleTypes={handleTypes}
             checked={typesArray.includes(type)}
+          />
+        ))}
+      </div>
+
+      <h3 className="text-gray-500 mb-2 font-bold mt-4">Filtrar por moneda</h3>
+      <div className='flex gap-x-5 gap-y-2 flex-wrap'>
+        {currencies.map((currency) => (
+          <SearchType
+            key={`search-currency-${currency}`}
+            label={currency}
+            value={currency}
+            handleTypes={handleCurrencies}
+            checked={currenciesArray.includes(currency)}
           />
         ))}
       </div>

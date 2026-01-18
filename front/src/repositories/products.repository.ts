@@ -2,8 +2,8 @@ import { GetFiltersDTO } from "../entities/GetFiltersDTO";
 import { Product } from "../entities/Product";
 
 export const productsRepository = {
-  getProducts: async (search: string = '', sort?: string, order: string = 'asc', types: string = ''): Promise<Product[]> => {
-    const response = await fetch(`${process.env.API_URL}/products?search=${search}&sort=${sort}&order=${order}&types=${types}`, {
+  getProducts: async (search: string = '', sort?: string, order: string = 'asc', types: string = '', currencies: string = ''): Promise<Product[]> => {
+    const response = await fetch(`${process.env.API_URL}/products?search=${search}&sort=${sort}&order=${order}&types=${types}&currencies=${currencies}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -19,9 +19,7 @@ export const productsRepository = {
       headers: {
         'Content-Type': 'application/json',
       },
-      next: {
-        revalidate: 60 * 60 // 1 hour,
-      },
+      cache: 'no-store',
     });
     const data = await response.json();
     return data;
