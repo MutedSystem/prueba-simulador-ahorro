@@ -21,7 +21,7 @@ const SearchFilters = ({ types, currencies, minAmount, maxAmount }: SearchFilter
       <FaFilter />
       {isOpen ? 'Cerrar filtros' : 'Filtrar'}
     </button>
-    <section className={`gap-y-2 w-full xl:w-[250px] 2xl:w-[300px] h-fit ${isOpen ? 'block' : 'hidden'}`}>
+    <section className={`gap-y-2 w-full xl:w-[200px] 2xl:w-[250px] h-fit ${isOpen ? 'block' : 'hidden'}`}>
       <h3 className="text-gray-500 mb-2 font-bold">Filtrar por tipo</h3>
       <div className='flex gap-x-5 gap-y-2 flex-wrap'>
         {types.map((type) => (
@@ -48,8 +48,8 @@ const SearchFilters = ({ types, currencies, minAmount, maxAmount }: SearchFilter
         ))}
       </div>
 
+      <AmountFilter minAmount={minAmount} maxAmount={maxAmount} />
     </section>
-    <AmountFilter minAmount={minAmount} maxAmount={maxAmount} />
   </>;
 };
 
