@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { MdOutlineErrorOutline } from 'react-icons/md';
 
 type ContactInputProps = {
   value: string;
@@ -16,8 +17,8 @@ type ContactInputProps = {
 
 const ContactInput = ({ label, id, name, placeholder, type, value, touched, error, onChange, onBlur }: ContactInputProps) => {
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={id}>{label}</label>
+    <div className="flex flex-col gap-1">
+      <label htmlFor={id} className="font-bold text-[14px]">{label} *</label>
       <input 
         type={type} 
         id={id} 
@@ -26,10 +27,13 @@ const ContactInput = ({ label, id, name, placeholder, type, value, touched, erro
         value={value} 
         onChange={onChange} 
         onBlur={onBlur} 
-        className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+        className="w-full px-4 py-2 rounded-md border bg-gray-100 border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary" 
         required={true}
       />
-      {error && touched && <p className="text-red-500">{error}</p>}
+      {error && touched && <small className="text-red-500 text-[12px] flex items-center gap-1">
+        <MdOutlineErrorOutline />
+        {error}
+      </small>}
     </div>
   );
 };

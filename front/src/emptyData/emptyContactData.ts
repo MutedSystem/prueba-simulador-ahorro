@@ -5,4 +5,5 @@ export const emptyContactData: ContactFormFields = {
   email: '',
   identificationType: '',
   identification: '',
+  termsAndConditions: false,
 };

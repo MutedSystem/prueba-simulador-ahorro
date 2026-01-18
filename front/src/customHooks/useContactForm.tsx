@@ -8,6 +8,7 @@ export type ContactFormFields = {
   email: string;
   identificationType: string;
   identification: string;
+  termsAndConditions: boolean;
 };
 
 type ContactFormErrors = Partial<Record<keyof ContactFormFields, string>>;
@@ -39,8 +40,6 @@ function useContactForm() {
 
     if (!fields.identificationType) {
       errors.identificationType = "El tipo de identificación es requerido";
-    } else if (fields.identificationType.length !== 2) {
-      errors.identificationType = "El tipo de identificación debe tener 2 caracteres";
     }
 
     if (!fields.identification) {
@@ -53,11 +52,15 @@ function useContactForm() {
       errors.identification = "La identificación debe tener menos de 100 caracteres";
     }
 
+    if (!fields.termsAndConditions) {
+      errors.termsAndConditions = "Debes aceptar los términos y condiciones";
+    }
+
     return errors;
   }, [fields]);
 
   const canSubmit = useMemo(() => {
-    return !errors.name && !errors.email && !errors.identificationType && !errors.identification;
+    return !errors.name && !errors.email && !errors.identificationType && !errors.identification && !errors.termsAndConditions;
   }, [errors]);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,10 +73,15 @@ function useContactForm() {
     setFields((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLSelectElement>) => {
     const { name } = e.target;
     setTouched((prev) => ({ ...prev, [name]: true }));
   }; 
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setFields((prev) => ({ ...prev, [name]: checked }));
+  };
 
   return {
     fields,
@@ -83,6 +91,7 @@ function useContactForm() {
     handleChange,
     handleSelectChange,
     handleBlur,
+    handleCheckboxChange,
   };
 }
 
