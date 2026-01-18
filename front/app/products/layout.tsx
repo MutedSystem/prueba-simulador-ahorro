@@ -1,7 +1,13 @@
 import ProductSearch from "@/src/components/Products/ProductSearch";
 import ProductSort from "@/src/components/Products/ProductSort";
 import ProductSearchSkeleton from "@/src/components/Skeletons/ProductSearchSkeleton";
+import { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Productos Financieros de FinColombia",
+  description: "Explora nuestros productos financieros diseñados para satisfacer tus necesidades financieras.",
+};
 
 export default function ProductsLayout({ children }: { children: React.ReactNode }) {
   return (
