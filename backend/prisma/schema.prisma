@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+enum NivelRiesgo {
+  bajo
+  medio
+  alto
+}
+
+model Product {
+  id String @id @unique
+  nombre String
+  codigo String
+  tipo String
+  descripcionCorta String
+  descripcionLarga String
+  moneda String
+  riesgo NivelRiesgo
+  tasaInteresAnual Float?
+  rentabilidadEsperadaAnual Float?
+  plazoMeses Int?
+  liquidezDias Int?
+  saldoMinimo Int?
+  montoApertura Int?
+  montoMinimo Int
+  destacado Boolean @default(false)
+  tags String
+}
+
+model Lead {
+  id String @id @unique
+  name String
+  email String
+  documentType String
+  documentNumber String
+  createdAt DateTime
+}
