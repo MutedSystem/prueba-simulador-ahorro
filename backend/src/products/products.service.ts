@@ -8,7 +8,14 @@ import { normalizeString } from 'src/utils/normalizeString';
 export class ProductsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async findAll(search: string, sort?: string, order: string = 'asc') {
+  async findAll(
+    search: string,
+    sort?: string,
+    order: string = 'asc',
+    types: string = '',
+  ) {
+    const searchParams: Prisma.ProductFindManyArgs = {};
+
     const filters: Prisma.ProductWhereInput = {};
 
     if (search) {
@@ -30,6 +37,15 @@ export class ProductsService {
           },
         },
       ];
+      searchParams.where = filters;
+    }
+
+    if (types) {
+      const typesArray = types.split(',');
+      filters.tipo = {
+        in: typesArray,
+      };
+      searchParams.where = filters;
     }
 
     let orderBy: Prisma.ProductOrderByWithRelationInput = {};
@@ -39,12 +55,6 @@ export class ProductsService {
         [SORT_NAMES[sort]]: order,
       };
       console.log(orderBy);
-    }
-
-    const searchParams: Prisma.ProductFindManyArgs = {};
-
-    if (search) {
-      searchParams.where = filters;
     }
 
     if (orderBy) {
@@ -57,5 +67,14 @@ export class ProductsService {
       ...product,
       tags: product.tags.split(','),
     }));
+  }
+
+  async getFilters() {
+    const types = await this.prismaService.product.groupBy({
+      by: ['tipo'],
+    });
+    return {
+      types: types.map((type) => type.tipo),
+    };
   }
 }
