@@ -11,8 +11,9 @@ export class ProductsController {
     @Query('sort') sort: 'nombre' | 'montoMinimo' | undefined,
     @Query('order') order: 'asc' | 'desc' = 'asc',
     @Query('types') types: string,
+    @Query('currencies') currencies: string,
   ) {
-    return this.productsService.findAll(search, sort, order, types);
+    return this.productsService.findAll(search, sort, order, types, currencies);
   }
 
   @Get('filters')

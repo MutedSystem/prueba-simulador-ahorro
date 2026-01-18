@@ -13,6 +13,7 @@ export class ProductsService {
     sort?: string,
     order: string = 'asc',
     types: string = '',
+    currencies: string = '',
   ) {
     const searchParams: Prisma.ProductFindManyArgs = {};
 
@@ -48,6 +49,14 @@ export class ProductsService {
       searchParams.where = filters;
     }
 
+    if (currencies) {
+      const currenciesArray = currencies.split(',');
+      filters.moneda = {
+        in: currenciesArray,
+      };
+      searchParams.where = filters;
+    }
+
     let orderBy: Prisma.ProductOrderByWithRelationInput = {};
 
     if (sort && Object.keys(SORT_NAMES).includes(sort)) {
@@ -73,8 +82,14 @@ export class ProductsService {
     const types = await this.prismaService.product.groupBy({
       by: ['tipo'],
     });
+
+    const currencies = await this.prismaService.product.groupBy({
+      by: ['moneda'],
+    });
+
     return {
       types: types.map((type) => type.tipo),
+      currencies: currencies.map((currency) => currency.moneda),
     };
   }
 }
