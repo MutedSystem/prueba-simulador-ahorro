@@ -15,24 +15,13 @@ body {
   --color-primary: #0052CC;
 }
 
-#amount-filter {
-  background-color: var(--color-primary);
-}
 
-#amount-filter {
-  background-color: var(--color-primary);
-}
-#amount-filter[data-disabled] {
-  background-color: var(--color-primary);
-}
 #amount-filter .range-slider__range {
   background-color: var(--color-primary);
 }
 #amount-filter .range-slider__range[data-active] {
   background-color: var(--color-primary);
-}
-#amount-filter .range-slider__thumb {
-  background-color: var(--color-primary);
+  opacity: 0.75;
 }
 #amount-filter .range-slider__thumb[data-lower] {
   background-color: var(--color-primary);
@@ -45,10 +34,4 @@ body {
   height: 16px;
   width: 16px;
   border-radius: 50%;
-}
-#amount-filter .range-slider__thumb[data-active] {
-  background-color: var(--color-primary);
-}
-#amount-filter .range-slider__thumb[data-disabled] {
-  background-color: var(--color-primary);
 }
