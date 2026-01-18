@@ -20,18 +20,16 @@ function useAmountFilter(min: number, max: number) {
   const [debouncedAmount] = useDebounce(amount, 500);
 
   useEffect(() => {
-    if(debouncedAmount[0] === minAmount && debouncedAmount[1] === maxAmount) {
-      return;
-    }
     const params = new URLSearchParams(searchParams);
     params.set('minAmount', debouncedAmount[0].toString());
-    if(debouncedAmount[0] === 0 || debouncedAmount[0] === minAmount) {
+    params.set('maxAmount', debouncedAmount[1].toString());
+    if(debouncedAmount[0] === min) {
       params.delete('minAmount');
     }
-    params.set('maxAmount', debouncedAmount[1].toString());
-    if(debouncedAmount[1] === 0 || debouncedAmount[1] === maxAmount) {
+    if(debouncedAmount[1] === max) {
       params.delete('maxAmount');
     }
+
     router.replace(`/products?${params.toString()}`);
   }, [debouncedAmount]);
 
