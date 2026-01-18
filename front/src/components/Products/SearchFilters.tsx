@@ -33,7 +33,7 @@ const SearchFilters = ({ types, currencies, minAmount, maxAmount }: SearchFilter
     <section className={`gap-y-2 w-full xl:w-[200px] 2xl:w-[250px] h-fit ${isOpen ? 'block' : 'hidden'}`}>
       <h3 className="text-gray-500 mb-2 font-bold">Filtrar por tipo</h3>
       <div className='flex gap-x-5 gap-y-2 flex-wrap'>
-        {types.map((type) => (
+        {types?.map((type) => (
           <SearchType
             key={`search-type-${type}`}
             label={type}
@@ -46,7 +46,7 @@ const SearchFilters = ({ types, currencies, minAmount, maxAmount }: SearchFilter
 
       <h3 className="text-gray-500 mb-2 font-bold mt-4">Filtrar por moneda</h3>
       <div className='flex gap-x-5 gap-y-2 flex-wrap'>
-        {currencies.map((currency) => (
+        {currencies?.map((currency) => (
           <SearchType
             key={`search-currency-${currency}`}
             label={currency}
