@@ -1,4 +1,5 @@
 import ProductSearch from "@/src/components/Products/ProductSearch";
+import ProductSort from "@/src/components/Products/ProductSort";
 import ProductSearchSkeleton from "@/src/components/Skeletons/ProductSearchSkeleton";
 import { Suspense } from "react";
 
@@ -8,7 +9,10 @@ export default function ProductsLayout({ children }: { children: React.ReactNode
       <h1 className="text-2xl font-bold">Productos Financieros de FinColombia</h1>
       <p className="text-gray-500">Explora nuestros productos financieros diseñados para satisfacer tus necesidades financieras.</p>
       <Suspense fallback={<ProductSearchSkeleton />}>
-        <ProductSearch />
+        <div className="flex items-center gap-2 w-full">
+          <ProductSearch />
+        </div>
+        <ProductSort />
       </Suspense>
       {children}
     </main>

@@ -4,15 +4,17 @@ import { productsRepository } from "@/src/repositories/products.repository";
 type ProductsPageProps = {
   searchParams: {
     search: string;
+    sort?: string;
+    order?: string;
   };
 };
 
 export default async function ProductsPage({
   searchParams,
 }: ProductsPageProps) {
-  const { search = "" } = await searchParams;
+  const { search = "", sort = "", order = "asc" } = await searchParams;
 
-  const products = await productsRepository.getProducts(search);
+  const products = await productsRepository.getProducts(search, sort, order);
 
   return (
     <>
