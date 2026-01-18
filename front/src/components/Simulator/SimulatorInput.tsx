@@ -9,6 +9,7 @@ type SimulatorInputProps = {
   placeholder?: string;
   error?: string;
   touched?: boolean;
+  disabled?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
 };
@@ -21,6 +22,7 @@ const SimulatorInput = ({
   error,
   placeholder,
   touched,
+  disabled,
   onChange,
   onBlur,
 }: SimulatorInputProps) => {
@@ -34,6 +36,7 @@ const SimulatorInput = ({
         placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}
+        disabled={disabled}
         className={`w-full px-4 py-2 rounded-md border bg-gray-100 border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary ${error && touched ? 'border-red-500' : ''}`}
       />
       {error && touched && <small className="text-red-500">{error}</small>}

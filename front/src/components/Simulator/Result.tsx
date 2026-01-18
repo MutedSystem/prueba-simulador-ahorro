@@ -1,5 +1,4 @@
 import { SimulatorFields, SimulatorResult } from '@/src/customHooks/useFormSimulator';
-import { YEARLY_INTEREST_RATE } from '@/src/utils/constants';
 import { formatCurrency } from '@/src/utils/formatCurrency';
 import { parseCurrency } from '@/src/utils/parceCurrency';
 import React from 'react';
@@ -7,9 +6,11 @@ import { FiActivity } from 'react-icons/fi';
 import { IoWalletOutline } from 'react-icons/io5';
 import { MdOutlineSavings } from 'react-icons/md';
 
-type ResultProps = SimulatorResult & SimulatorFields;
+type ResultProps = SimulatorResult & SimulatorFields & {
+  interestRate: number;
+};
 
-const Result = ({ finalAmount, savedAmount, interestEarned, amount, monthlyAmount, months }: ResultProps) => {
+const Result = ({ finalAmount, savedAmount, interestEarned, amount, monthlyAmount, months, interestRate }: ResultProps) => {
 
   const totalMonthlyAmount = formatCurrency(parseCurrency(monthlyAmount) * Number(months));
 
@@ -33,7 +34,7 @@ const Result = ({ finalAmount, savedAmount, interestEarned, amount, monthlyAmoun
             <p className="text-green-500/80 text-[25px] font-bold">{interestEarned}</p>
           </div>
         </div>
-        <p className="text-gray-500 text-sm mt-2">Intereses ganados por capitalización mensual al {YEARLY_INTEREST_RATE * 100}% anual</p>
+        <p className="text-gray-500 text-sm mt-2">Intereses ganados por capitalización mensual al {interestRate}% anual</p>
       </div>
       <div className="bg-primary/5 px-6 py-3 rounded-md border-2 border-primary">
         <div className="flex items-center gap-2">
@@ -58,7 +59,7 @@ const Result = ({ finalAmount, savedAmount, interestEarned, amount, monthlyAmoun
         </div>
         <div className='w-full h-px bg-gray-200'></div>
         <div className='flex gap-2 items-center justify-between'>
-          <p className='text-gray-500'>Rendimiento ({YEARLY_INTEREST_RATE * 100}% anual): </p>
+          <p className='text-gray-500'>Rendimiento ({interestRate}% anual): </p>
           <p className='text-green-600/80 font-bold'>+{interestEarned}</p>
         </div>
         <div className='w-full h-px bg-gray-200'></div>

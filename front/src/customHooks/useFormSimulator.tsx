@@ -1,11 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { emptySimulationData } from "../emptyData/emptySimulationData";
 import { parseCurrency } from "../utils/parceCurrency";
 import { formatCurrency } from "../utils/formatCurrency";
 import {
-  MINIMUM_AMOUNT,
   MINIMUM_MONTHLY_AMOUNT,
   MINIMUM_MONTHS,
 } from "../utils/constants";
@@ -28,8 +26,13 @@ export type SimulatorResult = {
   interestEarned: string;
 };
 
-function useFormSimulator() {
-  const [fields, setFields] = useState<SimulatorFields>(emptySimulationData);
+function useFormSimulator(minAmount: number, interestRate?: number, months?: number) {
+  const [fields, setFields] = useState<SimulatorFields>({
+    amount: formatCurrency(minAmount),
+    monthlyAmount: '',
+    months: months?.toString() || '',
+  });
+
   const [touched, setTouched] = useState<SimulatorTouched>({});
   const [result, setResult] = useState<SimulatorResult | null>(null);
 
@@ -44,9 +47,9 @@ function useFormSimulator() {
       errors.amount = "El monto inicial es requerido";
     } else if (isNaN(amountValue)) {
       errors.amount = "El monto inicial debe ser un número válido";
-    } else if (amountValue < MINIMUM_AMOUNT) {
+    } else if (amountValue < minAmount) {
       errors.amount = `El monto inicial debe ser mayor a ${formatCurrency(
-        MINIMUM_AMOUNT
+        minAmount
       )}`;
     }
 
@@ -69,7 +72,7 @@ function useFormSimulator() {
     }
 
     return errors;
-  }, [fields]);
+  }, [fields, minAmount]);
 
   const canCalculate = useMemo(() => {
     return !errors.amount && !errors.monthlyAmount && !errors.months;
@@ -106,7 +109,7 @@ function useFormSimulator() {
     const initialAmount = parseCurrency(fields.amount);
     const monthlyAmount = parseCurrency(fields.monthlyAmount);
     const months = Number(fields.months);
-    const totalAmount = calculateInterest(initialAmount, monthlyAmount, months);
+    const totalAmount = calculateInterest(initialAmount, monthlyAmount, months, interestRate);
     const savedAmount = calculateSavedAmount(monthlyAmount, months);
     const interestEarned = totalAmount - savedAmount;
     setResult({

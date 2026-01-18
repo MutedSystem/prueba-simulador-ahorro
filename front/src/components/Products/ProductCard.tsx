@@ -4,6 +4,8 @@ import { MdOutlineBusinessCenter } from 'react-icons/md';
 import ProductSubItem from './ProductSubItem';
 import { formatCurrency } from '@/src/utils/formatCurrency';
 import RiskCard from './RiskCard';
+import Link from 'next/link';
+import { FaCalculator } from 'react-icons/fa';
 
 type ProductCardProps = {
   product: Product;
@@ -32,6 +34,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <span key={tag} className="text-gray-500 text-xs bg-gray-100 px-2 py-1 rounded-full capitalize">{tag}</span>
         ))}
       </div>
+
+      <Link href={`/simulator/${product.id}`} className="bg-primary text-sm font-bold text-white px-4 py-2 rounded-md flex items-center gap-2 w-fit">
+        <FaCalculator />
+        Simula tu inversión
+      </Link>
     </li>
   );
 };

@@ -7,7 +7,13 @@ import SimulatorAlert from "./SimulatorAlert";
 import NoResult from "./NoResult";
 import Result from "./Result";
 
-const SimulatorForm = () => {
+type SimulatorFormProps = {
+  minAmount: number;
+  interestRate?: number;
+  months?: number;
+};
+
+const SimulatorForm = ({ minAmount, interestRate, months }: SimulatorFormProps) => {
   const {
     fields,
     errors,
@@ -17,7 +23,7 @@ const SimulatorForm = () => {
     handleChange,
     handleBlur,
     handleClick,
-  } = useFormSimulator();
+  } = useFormSimulator(minAmount, interestRate, months);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -56,6 +62,7 @@ const SimulatorForm = () => {
               onChange={handleChange}
               error={errors.months}
               onBlur={handleBlur}
+              disabled={typeof months === 'number'}
               touched={touched.months}
             />
             <button
@@ -77,7 +84,7 @@ const SimulatorForm = () => {
         </div>
         <p className="text-gray-500 text-sm mb-4">Proyección con capitalización mensual de intereses</p>
         {!result && <NoResult />}
-        {result && <Result {...result} {...fields} />}
+        {result && <Result {...result} {...fields} interestRate={Number(interestRate)} />}
       </div>
     </div>
   );

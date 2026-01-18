@@ -13,6 +13,22 @@ export const productsRepository = {
     const data = await response.json();
     return data;
   },
+  getProduct: async (id: string): Promise<Product | null> => {
+    const response = await fetch(`${process.env.API_URL}/products/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: {
+        revalidate: 60 * 60 * 24,
+      }
+    });
+    if (!response.ok) {
+      return null;
+    }
+    const data = await response.json();
+    return data as Product;
+  },
   getFilters: async (): Promise<GetFiltersDTO> => {
     const response = await fetch(`${process.env.API_URL}/products/filters`, {
       method: 'GET',

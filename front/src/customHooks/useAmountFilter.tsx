@@ -21,8 +21,8 @@ function useAmountFilter(min: number, max: number) {
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
-    params.set('minAmount', debouncedAmount[0].toString());
-    params.set('maxAmount', debouncedAmount[1].toString());
+    params.set('minAmount', debouncedAmount[0]?.toString());
+    params.set('maxAmount', debouncedAmount[1]?.toString());
     if(debouncedAmount[0] === min) {
       params.delete('minAmount');
     }
