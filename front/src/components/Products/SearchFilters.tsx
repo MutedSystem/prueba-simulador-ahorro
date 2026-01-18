@@ -4,13 +4,12 @@ import SearchType from './SearchType';
 import useFilterOpenness from '@/src/customHooks/useFilterOpenness';
 import { FaFilter } from 'react-icons/fa';
 import useProductFilter from '@/src/customHooks/useProductCurrency';
+import { GetFiltersDTO } from '@/src/entities/GetFiltersDTO';
+import AmountFilter from './AmountFilter';
 
-type SearchFiltersProps = {
-  types: string[];
-  currencies: string[];
-};
+type SearchFiltersProps = GetFiltersDTO;
 
-const SearchFilters = ({ types, currencies = [] }: SearchFiltersProps) => {
+const SearchFilters = ({ types, currencies, minAmount, maxAmount }: SearchFiltersProps) => {
 
   const { filterArray: typesArray, handleFilter: handleTypes } = useProductFilter('types');
   const { filterArray: currenciesArray, handleFilter: handleCurrencies } = useProductFilter('currencies');
@@ -50,6 +49,7 @@ const SearchFilters = ({ types, currencies = [] }: SearchFiltersProps) => {
       </div>
 
     </section>
+    <AmountFilter minAmount={minAmount} maxAmount={maxAmount} />
   </>;
 };
 
