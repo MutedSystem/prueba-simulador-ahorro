@@ -15,7 +15,6 @@ backend/lerna-debug.log*
 
 # Prisma
 backend/generated/prisma
-backend/prisma/migrations
 
 # OS
 backend/.DS_Store

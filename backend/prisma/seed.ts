@@ -2,6 +2,7 @@ import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../generated/prisma/client';
 import { Pool } from 'pg';
 import { PRODUCTS } from '../src/products/const/products';
+import { normalizeString } from 'src/utils/normalizeString';
 
 const prisma = new PrismaClient({
   adapter: new PrismaPg(
@@ -18,6 +19,9 @@ function main() {
       data: PRODUCTS.map((product) => ({
         ...product,
         tags: product.tags.join(','),
+        nombre_busqueda: normalizeString(product.nombre),
+        descripcion_corta_busqueda: normalizeString(product.descripcionCorta),
+        descripcion_larga_busqueda: normalizeString(product.descripcionLarga),
       })),
     })
     .then(() => {
