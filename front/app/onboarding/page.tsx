@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
-  title: "Unete a FinColombia",
+  title: "Únete a FinColombia",
   description: "Únete a FinColombia y accede a nuestros productos financieros diseñados para satisfacer tus necesidades financieras.",
 };
 

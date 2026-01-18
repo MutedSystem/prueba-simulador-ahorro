@@ -19,7 +19,7 @@ function Navbar() {
       <div className={`${isMenuOpen ? 'flex' : 'hidden'} md:flex flex-col md:flex-row border-b border-gray-200 md:border-none px-4 md:px-0 pb-4 md:pb-0 md:items-center gap-4 absolute md:static bottom-0 translate-y-[105%] md:translate-y-0 left-0 w-full bg-white md:bg-transparent md:w-auto transition-all duration-300`}>
         <NavItem handleMenuToggle={handleMenuToggle} href='/products' label='Productos financieros' />
         <NavItem handleMenuToggle={handleMenuToggle} href='/simulator' label='Simulador' />
-        <NavItem handleMenuToggle={handleMenuToggle} href='/onboarding' label='Unete' />
+        <NavItem handleMenuToggle={handleMenuToggle} href='/onboarding' label='Únete' />
       </div>
       <div className='flex items-center gap-4 md:hidden'>
         <button className='text-gray-500 hover:text-gray-700 text-[20px]' onClick={handleMenuToggle}>

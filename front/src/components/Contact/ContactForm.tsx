@@ -32,7 +32,7 @@ export default function Form() {
     <>
       <div className="flex flex-col gap-4 p-6 border border-gray-300 rounded-md w-[90%] sm:w-3/4 md:w-1/2 xl:w-[500px] 2xl:w-[450px]">
         <div>
-          <h1 className="text-2xl font-bold text-primary">Unete a FinColombia</h1>
+          <h1 className="text-2xl font-bold text-primary">Únete a FinColombia</h1>
           <p className="text-gray-500">Completa el formulario para darte a conocer nuestros productos financieros.</p>
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
