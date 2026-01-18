@@ -1,5 +1,11 @@
 import React from 'react';
 import SimulatorForm from '@/src/components/Simulator/SimulatorForm';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Simulador de inversión de FinColombia",
+  description: "Simula tu inversión en FinColombia y descubre cuánto puedes ganar.",
+};
 
 const SimulatorPage = () => {
   return (
