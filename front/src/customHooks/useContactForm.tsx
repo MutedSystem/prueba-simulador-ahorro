@@ -6,8 +6,8 @@ import { emptyContactData } from "../emptyData/emptyContactData";
 export type ContactFormFields = {
   name: string;
   email: string;
-  identificationType: string;
-  identification: string;
+  documentType: string;
+  documentNumber: string;
   termsAndConditions: boolean;
 };
 
@@ -20,6 +20,7 @@ function useContactForm() {
   const [touched, setTouched] = useState<ContactFormTouched>({} as ContactFormTouched);
 
   const errors = useMemo(() => {
+
     const errors: ContactFormErrors = {};
 
     if (!fields.name) {
@@ -38,18 +39,20 @@ function useContactForm() {
       errors.email = "El email debe ser válido";
     }
 
-    if (!fields.identificationType) {
-      errors.identificationType = "El tipo de identificación es requerido";
+    if (!fields.documentType) {
+      errors.documentType = "El tipo de identificación es requerido";
     }
 
-    if (!fields.identification) {
-      errors.identification = "La identificación es requerida";
-    } else if (isNaN(Number(fields.identification))) {
-      errors.identification = "La identificación debe ser un número válido";
-    } else if (fields.identification.length < 5) {
-      errors.identification = "La identificación debe tener al menos 5 caracteres";
-    } else if (fields.identification.length > 100) {
-      errors.identification = "La identificación debe tener menos de 100 caracteres";
+    const numberRegex = /^[0-9]+$/;
+
+    if (!fields.documentNumber) {
+      errors.documentNumber = "La identificación es requerida";
+    } else if (isNaN(Number(fields.documentNumber)) || !numberRegex.test(fields.documentNumber)) {
+      errors.documentNumber = "La identificación debe ser un número válido";
+    } else if (fields.documentNumber.length < 5) {
+      errors.documentNumber = "La identificación debe tener al menos 5 caracteres";
+    } else if (fields.documentNumber.length > 100) {
+      errors.documentNumber = "La identificación debe tener menos de 100 caracteres";
     }
 
     if (!fields.termsAndConditions) {
@@ -60,7 +63,7 @@ function useContactForm() {
   }, [fields]);
 
   const canSubmit = useMemo(() => {
-    return !errors.name && !errors.email && !errors.identificationType && !errors.identification && !errors.termsAndConditions;
+    return !errors.name && !errors.email && !errors.documentType && !errors.documentNumber && !errors.termsAndConditions;
   }, [errors]);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

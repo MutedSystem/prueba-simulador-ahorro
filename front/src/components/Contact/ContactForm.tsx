@@ -9,8 +9,16 @@ import ContactModal from "./ContactModal";
 import ContactCheckbox from "./ContactCheckbox";
 
 export default function Form() {
-  const { showModal, error, leadId, pending, handleSubmit, setShowModal } = useContactFormAction();
-  const { fields,
+  const {
+    showModal,
+    error,
+    leadId,
+    pending,
+    handleSubmit,
+    setShowModal
+  } = useContactFormAction();
+  const {
+    fields,
     errors,
     touched,
     canSubmit,
@@ -55,10 +63,10 @@ export default function Form() {
           />
           <ContactSelect
             label="Tipo de identificación"
-            id="identificationType"
-            name="identificationType"
-            error={errors.identificationType || ''}
-            touched={touched.identificationType}
+            id="documentType"
+            name="documentType"
+            error={errors.documentType || ''}
+            touched={touched.documentType}
             options={[
               { label: "Selecciona un tipo de identificación", value: "", isDefault: true },
               { label: "Cédula de ciudadanía", value: "CC" },
@@ -68,19 +76,19 @@ export default function Form() {
               { label: "RUC", value: "RUC" },
             ]}
             placeholder="Tipo de identificación"
-            value={fields.identificationType}
+            value={fields.documentType}
             onChange={handleSelectChange}
             onBlur={handleBlur}
           />
           <ContactInput
             label="Identificación"
-            id="identification"
-            name="identification"
+            id="documentNumber"
+            name="documentNumber"
             placeholder="Identificación"
             type="text"
-            value={fields.identification}
-            touched={touched.identification}
-            error={errors.identification || ''}
+            value={fields.documentNumber}
+            touched={touched.documentNumber}
+            error={errors.documentNumber || ''}
             onChange={handleChange}
             onBlur={handleBlur}
           />
