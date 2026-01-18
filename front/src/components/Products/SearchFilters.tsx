@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import SearchType from './SearchType';
-import useProductTypes from '@/src/customHooks/useProductTypes';
 import useFilterOpenness from '@/src/customHooks/useFilterOpenness';
 import { FaFilter } from 'react-icons/fa';
 import useProductFilter from '@/src/customHooks/useProductCurrency';
@@ -12,8 +11,8 @@ type SearchFiltersProps = {
 };
 
 const SearchFilters = ({ types, currencies = [] }: SearchFiltersProps) => {
-  const { handleTypes, typesArray } = useProductTypes();
 
+  const { filterArray: typesArray, handleFilter: handleTypes } = useProductFilter('types');
   const { filterArray: currenciesArray, handleFilter: handleCurrencies } = useProductFilter('currencies');
 
   const { isOpen, toggleFilterOpenness } = useFilterOpenness();
