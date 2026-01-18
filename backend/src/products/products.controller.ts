@@ -8,8 +8,8 @@ export class ProductsController {
   @Get()
   findAll(
     @Query('search') search: string,
-    @Query('sort') sort: string,
-    @Query('order') order: string,
+    @Query('sort') sort: 'nombre' | 'montoMinimo' | undefined,
+    @Query('order') order: 'asc' | 'desc' = 'asc',
   ) {
     return this.productsService.findAll(search, sort, order);
   }

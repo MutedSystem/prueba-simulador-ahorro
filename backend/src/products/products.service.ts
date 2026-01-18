@@ -8,7 +8,7 @@ import { normalizeString } from 'src/utils/normalizeString';
 export class ProductsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async findAll(search: string, sort: string, order: string = 'asc') {
+  async findAll(search: string, sort?: string, order: string = 'asc') {
     const filters: Prisma.ProductWhereInput = {};
 
     if (search) {
