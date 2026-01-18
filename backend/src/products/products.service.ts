@@ -59,8 +59,6 @@ export class ProductsService {
       searchParams.where = filters;
     }
 
-    console.log(minAmount, maxAmount);
-
     const minAmountNumber = Number(minAmount);
 
     if (minAmountNumber && !isNaN(minAmountNumber) && minAmountNumber >= 0) {
@@ -84,7 +82,6 @@ export class ProductsService {
       orderBy = {
         [SORT_NAMES[sort]]: order,
       };
-      console.log(orderBy);
     }
 
     if (orderBy) {
