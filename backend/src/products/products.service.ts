@@ -59,22 +59,34 @@ export class ProductsService {
       searchParams.where = filters;
     }
 
-    const minAmountNumber = Number(minAmount);
-
-    if (minAmountNumber && !isNaN(minAmountNumber) && minAmountNumber >= 0) {
+    const amountFilter = {
+      minAmount: minAmount ? Number(minAmount) : undefined,
+      maxAmount: maxAmount ? Number(maxAmount) : undefined,
+    };
+    if (amountFilter.minAmount && amountFilter.maxAmount) {
+      filters.AND = [
+        {
+          montoMinimo: {
+            gte: amountFilter.minAmount,
+          },
+        },
+        {
+          montoMinimo: {
+            lte: amountFilter.maxAmount,
+          },
+        },
+      ];
+    } else if (amountFilter.minAmount) {
       filters.montoMinimo = {
-        gte: minAmountNumber,
+        gte: amountFilter.minAmount,
       };
-      searchParams.where = filters;
+    } else if (amountFilter.maxAmount) {
+      filters.montoMinimo = {
+        lte: amountFilter.maxAmount,
+      };
     }
 
-    const maxAmountNumber = Number(maxAmount);
-    if (maxAmountNumber && !isNaN(maxAmountNumber) && maxAmountNumber >= 0) {
-      filters.montoMinimo = {
-        lte: maxAmountNumber,
-      };
-      searchParams.where = filters;
-    }
+    searchParams.where = filters;
 
     let orderBy: Prisma.ProductOrderByWithRelationInput = {};
 
@@ -87,6 +99,8 @@ export class ProductsService {
     if (orderBy) {
       searchParams.orderBy = orderBy;
     }
+
+    console.log('searchParams', JSON.stringify(searchParams, null, 2));
 
     const products = await this.prismaService.product.findMany(searchParams);
 
