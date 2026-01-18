@@ -71,7 +71,7 @@ const SimulatorForm = ({ minAmount, interestRate, months }: SimulatorFormProps) 
               disabled={!canCalculate}
               className="bg-primary text-white p-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Calcular
+              Simular
             </button>
           </form>
         </div>
