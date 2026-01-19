@@ -21,26 +21,29 @@ const normalizeString = (str: string) => {
     .replace(/[^a-z0-9]/g, '');
 };
 
-function main() {
-  prisma.product
-    .createMany({
-      data: PRODUCTS.map((product) => ({
+async function main() {
+  for (const product of PRODUCTS) {
+    await prisma.product.upsert({
+      where: { id: product.id },
+      create: {
         ...product,
         tags: product.tags.join(','),
         nombre_busqueda: normalizeString(product.nombre),
         descripcion_corta_busqueda: normalizeString(product.descripcionCorta),
         descripcion_larga_busqueda: normalizeString(product.descripcionLarga),
-      })),
-    })
-    .then(() => {
-      console.log('Productos creados');
-    })
-    .catch((error) => {
-      console.error(error);
-    })
-    .finally(async () => {
-      await prisma.$disconnect();
+      },
+      update: {
+        ...product,
+        tags: product.tags.join(','),
+        nombre_busqueda: normalizeString(product.nombre),
+        descripcion_corta_busqueda: normalizeString(product.descripcionCorta),
+        descripcion_larga_busqueda: normalizeString(product.descripcionLarga),
+      },
     });
+  }
 }
 
-main();
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
