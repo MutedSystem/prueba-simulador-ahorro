@@ -26,13 +26,13 @@ export class ProductsController {
     );
   }
 
+  @Get('/filters')
+  getFilters() {
+    return this.productsService.getFilters();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.productsService.findOne(id);
-  }
-
-  @Get('filters')
-  getFilters() {
-    return this.productsService.getFilters();
   }
 }
