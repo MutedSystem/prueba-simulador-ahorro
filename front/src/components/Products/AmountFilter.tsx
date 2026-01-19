@@ -11,7 +11,7 @@ type AmountFilterProps = {
 };
 
 const AmountFilter = ({ minAmount, maxAmount }: AmountFilterProps) => {
-  const { amount, handleAmountChange } = useAmountFilter(minAmount, maxAmount);
+  const { amount, handleAmountChange, applyAmountFilter } = useAmountFilter(minAmount, maxAmount);
   return (
     <section className="w-full mt-4">
       <h3 className="text-gray-500 mb-2 font-bold">Filtrar por monto</h3>
@@ -24,6 +24,8 @@ const AmountFilter = ({ minAmount, maxAmount }: AmountFilterProps) => {
         max={maxAmount}
         value={amount}
         onInput={handleAmountChange}
+        onThumbDragEnd={applyAmountFilter}
+        onRangeDragEnd={applyAmountFilter}
         id="amount-filter"
         className="w-full my-2"
       />

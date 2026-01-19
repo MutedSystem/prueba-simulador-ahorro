@@ -2,7 +2,6 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useDebounce } from "use-debounce";
 
 function useAmountFilter(min: number, max: number) {
 
@@ -11,29 +10,32 @@ function useAmountFilter(min: number, max: number) {
   const maxAmount = Number(searchParams.get('maxAmount')) || max;
   const router = useRouter();
 
-  const [amount, setAmount] = useState<[number, number]>([minAmount, maxAmount]);
+  const [amount, setAmount] = useState<[number, number]>([min, max]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setAmount([minAmount, maxAmount]);
+    }, 10);
+  }, [minAmount, maxAmount]);
 
   const handleAmountChange = (value: [number, number]) => {
     setAmount(value);
   };
 
-  const [debouncedAmount] = useDebounce(amount, 500);
-
-  useEffect(() => {
+  const applyAmountFilter = () => {
     const params = new URLSearchParams(searchParams);
-    params.set('minAmount', debouncedAmount[0]?.toString());
-    params.set('maxAmount', debouncedAmount[1]?.toString());
-    if(debouncedAmount[0] === min) {
+    params.set('minAmount', amount[0]?.toString());
+    params.set('maxAmount', amount[1]?.toString());
+    if(amount[0] === min) {
       params.delete('minAmount');
     }
-    if(debouncedAmount[1] === max) {
+    if(amount[1] === max) {
       params.delete('maxAmount');
     }
-
     router.replace(`/products?${params.toString()}`);
-  }, [debouncedAmount]);
+  };
 
-  return { amount, handleAmountChange };
+  return { amount, handleAmountChange, applyAmountFilter };
 }
 
 export default useAmountFilter;
