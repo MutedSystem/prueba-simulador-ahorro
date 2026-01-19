@@ -3,16 +3,10 @@ import SimulatorForm from '@/src/components/Simulator/SimulatorForm';
 import { productsRepository } from '@/src/repositories/products.repository';
 import { notFound } from 'next/navigation';
 
-
 type SimulatorPageProps = {
   params: {
     id: string;
   };
-};
-
-export const generateStaticParams = async () => {
-  const products = await productsRepository.getProducts();
-  return products.map((product) => ({ id: product.id }));
 };
 
 export const generateMetadata = async ({ params }: SimulatorPageProps) => {
