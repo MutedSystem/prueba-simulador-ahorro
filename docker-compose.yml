@@ -15,6 +15,8 @@ services:
       start_period: 30s
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - mired
 
   backend:
     environment:
@@ -31,6 +33,8 @@ services:
     ports:
       - "3005:3005"
     command: sh -c "npx prisma migrate deploy && npx prisma db seed && node dist/src/main.js"
+    networks:
+      - mired
 
   frontend:
     environment:
@@ -44,6 +48,14 @@ services:
     ports:
       - "3000:3000"
     command: ["npm", "run", "start"]
+    depends_on:
+      - backend
+    networks:
+      - mired
+
+networks:
+  mired:
+    driver: bridge
 
 volumes:
   db_data:
